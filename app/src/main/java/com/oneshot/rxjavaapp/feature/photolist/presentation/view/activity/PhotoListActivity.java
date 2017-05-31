@@ -1,7 +1,6 @@
 package com.oneshot.rxjavaapp.feature.photolist.presentation.view.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -16,13 +15,10 @@ public class PhotoListActivity extends BaseActivity {
     private static final String TAG = PhotoListActivity.class.getSimpleName();
 
     @Override
-    public int getLayoutResId() {
-        return R.layout.activity_main;
-    }
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+        setContentView(R.layout.activity_main);
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
         if (fragment == null) {
