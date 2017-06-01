@@ -1,8 +1,10 @@
 package com.oneshot.rxjavaapp.feature.photolist.data.service;
 
+import com.oneshot.rxjavaapp.constants.PhotoApiConstants;
 import com.oneshot.rxjavaapp.feature.photolist.data.entity.PhotosPageEntity;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,5 +16,5 @@ public interface PhotosApi {
     Observable<PhotosPageEntity> getFreshTodayPhotos();
 
     @GET("photos/search")
-    Observable<PhotosPageEntity> getPhotosByTerm(@Query("term") String queryTerm);
+    Observable<PhotosPageEntity> getPhotosByTerm(@Query("term") String queryTerm, @Query("image_size") @PhotoApiConstants.ImageSizeCroppedIds int photoSize);
 }
