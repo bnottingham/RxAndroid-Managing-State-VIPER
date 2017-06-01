@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class PhotoSearchUiModel extends UiModel<PhotosPageEntity> {
     private List<PhotoModel> mPhotoList;
-    private boolean mShouldClearResult;
+    private boolean mShouldClearContentOnSuccess;
 
     public PhotoSearchUiModel(boolean inProgress, boolean success, Throwable error, PhotosPageEntity result) {
         super(inProgress, success, error, result);
@@ -25,8 +25,8 @@ public class PhotoSearchUiModel extends UiModel<PhotosPageEntity> {
         return mPhotoList == null ? Collections.emptyList() : mPhotoList;
     }
 
-    public boolean shouldClearContent() {
-        return mShouldClearResult;
+    public boolean shouldClearContentOnSuccess() {
+        return mShouldClearContentOnSuccess;
     }
 
     @Override
@@ -35,8 +35,7 @@ public class PhotoSearchUiModel extends UiModel<PhotosPageEntity> {
 
         Action action = result.getAction();
         if (action instanceof PhotoSearchByTermAction) {
-            mShouldClearResult = ((PhotoSearchByTermAction) action).shouldClearContentOnSuccess();
+            mShouldClearContentOnSuccess = ((PhotoSearchByTermAction) action).shouldClearContentOnSuccess();
         }
-
     }
 }

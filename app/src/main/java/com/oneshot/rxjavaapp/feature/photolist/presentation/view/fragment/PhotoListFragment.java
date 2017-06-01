@@ -105,7 +105,7 @@ public class PhotoListFragment extends BaseFragment {
 
     public void onPhotosReady(PhotoSearchUiModel refreshModel) {
         final List<PhotoModel> list = refreshModel.getPhotosAsList();
-        if (refreshModel.shouldClearContent()) {
+        if (refreshModel.shouldClearContentOnSuccess()) {
             mPhotoListAdapter.setData(list);
         } else {
             mPhotoListAdapter.appendData(list);

@@ -4,7 +4,6 @@ import com.oneshot.rxjavaapp.constants.PhotoApiConstants;
 import com.oneshot.rxjavaapp.feature.photolist.data.entity.PhotosPageEntity;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
