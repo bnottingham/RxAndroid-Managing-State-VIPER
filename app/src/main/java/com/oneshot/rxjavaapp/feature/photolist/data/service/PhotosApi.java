@@ -1,11 +1,9 @@
 package com.oneshot.rxjavaapp.feature.photolist.data.service;
 
-import com.oneshot.rxjavaapp.feature.photolist.data.entity.PhotoVoteEntity;
 import com.oneshot.rxjavaapp.feature.photolist.data.entity.PhotosPageEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -17,7 +15,4 @@ public interface PhotosApi {
 
     @GET("photos/search")
     Observable<PhotosPageEntity> getPhotosByTerm(@Query("term") String queryTerm);
-
-    @GET("photos/{id}/votes?")
-    Observable<PhotoVoteEntity> getPhotoLikes(@Path("id") int id);
 }

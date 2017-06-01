@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.oneshot.rxjavaapp.R;
@@ -29,9 +31,10 @@ public class PhotoListFragment extends BaseFragment {
     private PhotoListPresenter mPhotoListPresenter;
 
     private View mProgressBarContainer;
-    private CheckedTextView mClearCheckBox;
-    private Button mSubmitButton;
-    private RecyclerView mRecyclerView;
+    private CheckedTextView mClearResultsOnSuccessCheckBox;
+    private EditText mSearchQueryEditText;
+    private Button mSearchPhotosButton;
+    private RecyclerView mPhotoListRecyclerView;
     private PhotoListAdapter mPhotoListAdapter;
 
     public PhotoListFragment() {
@@ -52,22 +55,27 @@ public class PhotoListFragment extends BaseFragment {
     @CallSuper
     @Override
     public void onViewReady(Bundle savedInstanceState) {
-        mProgressBarContainer = findViewById(R.id.progress_bar_container);
-        mClearCheckBox = (CheckedTextView) findViewById(R.id.submit_checkbox);
-        mSubmitButton = (Button) findViewById(R.id.submit_button);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mProgressBarContainer = findViewById(R.id.search_progress_bar_container);
+        mClearResultsOnSuccessCheckBox = (CheckedTextView) findViewById(R.id.search_checkbox_clear_results_on_success);
+        mSearchPhotosButton = (Button) findViewById(R.id.search_button_submit);
+        mPhotoListRecyclerView = (RecyclerView) findViewById(R.id.search_photo_list_results);
+        mSearchQueryEditText = (EditText) findViewById(R.id.search_edittext_query);
 
-        mPhotoListPresenter.handleSubmitClicked(RxView.clicks(mSubmitButton)
-                .map(ignored -> new SearchPhotosByTermUiEvent("dog", mClearCheckBox.isChecked())));
+        mPhotoListPresenter.handleSubmitClicked(RxView.clicks(mSearchPhotosButton)
+                .map(ignored -> new SearchPhotosByTermUiEvent(mSearchQueryEditText.getText().toString(), mClearResultsOnSuccessCheckBox.isChecked())));
 
         setupList();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         mPhotoListPresenter.onTakeView();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         mPhotoListPresenter.onDropView();
     }
 
@@ -81,7 +89,7 @@ public class PhotoListFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean(KEY_CLEAR_CHECKBOX_STATE, mClearCheckBox.isChecked());
+        outState.putBoolean(KEY_CLEAR_CHECKBOX_STATE, mClearResultsOnSuccessCheckBox.isChecked());
     }
 
     @Override
@@ -92,7 +100,7 @@ public class PhotoListFragment extends BaseFragment {
         }
 
         boolean refreshChecked = savedInstanceState.getBoolean(KEY_CLEAR_CHECKBOX_STATE);
-        mClearCheckBox.setChecked(refreshChecked);
+        mClearResultsOnSuccessCheckBox.setChecked(refreshChecked);
     }
 
     public void onPhotosReady(PhotoSearchUiModel refreshModel) {
@@ -105,7 +113,7 @@ public class PhotoListFragment extends BaseFragment {
     }
 
     public void setSubmitEnabled(boolean isEnabled) {
-        mSubmitButton.setEnabled(isEnabled);
+        mSearchPhotosButton.setEnabled(isEnabled);
     }
 
     public void showProgressBar(boolean isVisible) {
@@ -114,7 +122,11 @@ public class PhotoListFragment extends BaseFragment {
 
     private void setupList() {
         mPhotoListAdapter = new PhotoListAdapter();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mPhotoListAdapter);
+        mPhotoListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mPhotoListRecyclerView.setAdapter(mPhotoListAdapter);
+    }
+
+    public void showError(Throwable error) {
+        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
     }
 }

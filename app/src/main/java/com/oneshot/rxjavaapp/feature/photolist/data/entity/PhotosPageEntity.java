@@ -20,7 +20,21 @@ public class PhotosPageEntity extends Result {
 
     PhotoEntity[] photos;
 
+    public int getCurrentPage() {
+        return current_page;
+    }
+
+    public int getTotalPages() {
+        return total_pages;
+    }
+
+    public int getTotalItems() {
+        return total_items;
+    }
+
     public PhotoEntity[] getPhotos() {
         return photos;
     }
+
+
 }

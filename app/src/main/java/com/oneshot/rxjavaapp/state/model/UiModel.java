@@ -7,13 +7,15 @@ public abstract class UiModel<T> {
 
     final boolean mInProgress;
     final boolean mSuccess;
-    final String mErrorMessage;
+    final Throwable mThrowable;
     final T mResult;
 
-    public UiModel(boolean inProgress, boolean success, String errorMessage, T result) {
+    protected abstract void onResultReady(T result);
+
+    public UiModel(boolean inProgress, boolean success, Throwable throwable, T result) {
         mInProgress = inProgress;
         mSuccess = success;
-        mErrorMessage = errorMessage;
+        mThrowable = throwable;
         mResult = result;
 
         if (mResult != null) {
@@ -29,5 +31,11 @@ public abstract class UiModel<T> {
         return mSuccess;
     }
 
-    protected abstract void onResultReady(T result);
+    public boolean isFailure() {
+        return mThrowable != null;
+    }
+
+    public Throwable getError() {
+        return mThrowable;
+    }
 }

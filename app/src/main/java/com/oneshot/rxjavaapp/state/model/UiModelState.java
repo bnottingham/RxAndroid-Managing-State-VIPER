@@ -20,10 +20,10 @@ public class UiModelState {
         return null;
     }
 
-    public static <T> T failure(Class<T> uiClass, String message) {
+    public static <T> T failure(Class<T> uiClass, Throwable throwable) {
         try {
             Constructor constructor = uiClass.getConstructors()[0];
-            Object object = constructor.newInstance(new Object[]{false, false, message, null});
+            Object object = constructor.newInstance(new Object[]{false, false, throwable, null});
             return (T) object;
         } catch (Exception e) {
             e.printStackTrace();

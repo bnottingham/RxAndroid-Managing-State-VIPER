@@ -46,7 +46,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Imag
         int count = mPhotos.size();
         mPhotos.addAll(photos);
 
-        notifyItemRangeInserted(count, mPhotos.size());
+        notifyItemRangeInserted(count, photos.size());
     }
 
     @Override

@@ -17,8 +17,8 @@ public class PhotoSearchUiModel extends UiModel<PhotosPageEntity> {
     private List<PhotoModel> mPhotoList;
     private boolean mShouldClearResult;
 
-    public PhotoSearchUiModel(boolean inProgress, boolean success, String errorMessage, PhotosPageEntity result) {
-        super(inProgress, success, errorMessage, result);
+    public PhotoSearchUiModel(boolean inProgress, boolean success, Throwable error, PhotosPageEntity result) {
+        super(inProgress, success, error, result);
     }
 
     public List<PhotoModel> getPhotosAsList() {
@@ -35,7 +35,7 @@ public class PhotoSearchUiModel extends UiModel<PhotosPageEntity> {
 
         Action action = result.getAction();
         if (action instanceof PhotoSearchByTermAction) {
-            mShouldClearResult = ((PhotoSearchByTermAction) action).shouldClearContent();
+            mShouldClearResult = ((PhotoSearchByTermAction) action).shouldClearContentOnSuccess();
         }
 
     }

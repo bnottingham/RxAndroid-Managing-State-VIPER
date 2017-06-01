@@ -36,6 +36,8 @@ public class PhotoListPresenter extends BasePresenter {
 
                     if (!model.isInProgress() && model.isSuccess()) {
                         mView.onPhotosReady(model);
+                    }else if(model.isFailure()){
+                        mView.showError(model.getError());
                     }
                 }, throwable -> {
                     throw new OnErrorNotImplementedException(throwable);

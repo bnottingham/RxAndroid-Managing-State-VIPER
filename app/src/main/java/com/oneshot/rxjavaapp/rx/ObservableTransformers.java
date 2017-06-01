@@ -132,7 +132,7 @@ public final class ObservableTransformers {
      */
     public static <T> ObservableTransformer<T, T> networkTransformer(Class<T> classType) {
         return events -> events
-                .onErrorReturn(t -> UiModelState.failure(classType, t.getMessage()))
+                .onErrorReturn(t -> UiModelState.failure(classType, t))
                 .compose(ObservableTransformers.applySchedulersSubscribeOnAsyncObserveOnMain())
                 .startWith(UiModelState.inProgress(classType));
     }

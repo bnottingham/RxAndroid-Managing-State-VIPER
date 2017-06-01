@@ -8,20 +8,20 @@ import com.oneshot.rxjavaapp.state.service.Action;
  */
 public class PhotoSearchByTermAction extends Action {
     private final String mSearchTerm;
-    private final boolean mClearContent;
+    private final boolean mClearContentOnSuccess;
 
     public PhotoSearchByTermAction(SearchPhotosByTermUiEvent event) {
         super(event);
 
         mSearchTerm = event.getSearchTerm();
-        mClearContent = event.getClearContentOnSuccess();
+        mClearContentOnSuccess = event.getClearContentOnSuccess();
     }
 
     public String getTerm() {
         return mSearchTerm;
     }
 
-    public boolean shouldClearContent() {
-        return mClearContent;
+    public boolean shouldClearContentOnSuccess() {
+        return mClearContentOnSuccess;
     }
 }
