@@ -27,7 +27,7 @@
                 android:text="@string/search_photos" />
         </LinearLayout>
 
-        <com.oneshot.rxjavaapp.rx.view.RxCheckedTextView
+        <cool.oneshot.rxjavaapp.rx.view.RxCheckedTextView
             android:id="@+id/search_checkbox_clear_results_on_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
