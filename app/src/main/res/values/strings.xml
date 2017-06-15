@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyRxJavaApp</string>
+    <string name="search_photos">Search Photos</string>
+    <string name="search_clear_results">Clear Results</string>
+
+
+    <string name="api_consumer_key">mSDECDmxoEEEw32OgaNxZxhUFuwiZetUaK9xTyTW</string>
+</resources>
